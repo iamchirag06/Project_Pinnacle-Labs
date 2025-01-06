@@ -137,6 +137,5 @@ public class NoteTakingApp {
                 System.out.println("An error occurred: " + e.getMessage());
             }
         }
-        sc.close();
     }
 }
