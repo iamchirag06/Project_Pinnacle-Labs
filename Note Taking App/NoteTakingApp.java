@@ -77,64 +77,64 @@ public class NoteTakingApp {
     private static NoteManager noteManager = new NoteManager();
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                try {
+                    System.out.println("\nNote Taking App:");
+                    System.out.println("1. Create Note");
+                    System.out.println("2. List Notes");
+                    System.out.println("3. View Note");
+                    System.out.println("4. Edit Note");
+                    System.out.println("5. Delete Note");
+                    System.out.println("6. Exit");
+                    System.out.print("Choose an option: ");
 
-        while (true) {
-            try {
-                System.out.println("\nNote Taking App:");
-                System.out.println("1. Create Note");
-                System.out.println("2. List Notes");
-                System.out.println("3. View Note");
-                System.out.println("4. Edit Note");
-                System.out.println("5. Delete Note");
-                System.out.println("6. Exit");
-                System.out.print("Choose an option: ");
+                    int choice = Integer.parseInt(scanner.nextLine());
 
-                int choice = Integer.parseInt(scanner.nextLine());
-
-                switch (choice) {
-                    case 1:
-                        System.out.print("Enter note title: ");
-                        String title = scanner.nextLine();
-                        System.out.print("Enter note content: ");
-                        String content = scanner.nextLine();
-                        noteManager.createNote(title, content);
-                        break;
-                    case 2:
-                        noteManager.listNotes();
-                        break;
-                    case 3:
-                        System.out.print("Enter note number to view: ");
-                        int viewIndex = Integer.parseInt(scanner.nextLine());
-                        Note note = noteManager.getNoteByIndex(viewIndex);
-                        if (note != null) {
-                            System.out.println("\nTitle: " + note.getTitle());
-                            System.out.println("Content: " + note.getContent());
-                            System.out.println("Created: " + note.getCreatedDate());
-                        }
-                        break;
-                    case 4:
-                        System.out.print("Enter note number to edit: ");
-                        int editIndex = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Enter new content: ");
-                        String newContent = scanner.nextLine();
-                        noteManager.editNoteContent(editIndex, newContent);
-                        break;
-                    case 5:
-                        System.out.print("Enter note number to delete: ");
-                        int deleteIndex = Integer.parseInt(scanner.nextLine());
-                        noteManager.deleteNoteByIndex(deleteIndex);
-                        break;
-                    case 6:
-                        System.out.println("Exiting application. Goodbye!");
-                        return;
-                    default:
-                        System.out.println("Invalid option. Please try again.");
+                    switch (choice) {
+                        case 1:
+                            System.out.print("Enter note title: ");
+                            String title = scanner.nextLine();
+                            System.out.print("Enter note content: ");
+                            String content = scanner.nextLine();
+                            noteManager.createNote(title, content);
+                            break;
+                        case 2:
+                            noteManager.listNotes();
+                            break;
+                        case 3:
+                            System.out.print("Enter note number to view: ");
+                            int viewIndex = Integer.parseInt(scanner.nextLine());
+                            Note note = noteManager.getNoteByIndex(viewIndex);
+                            if (note != null) {
+                                System.out.println("\nTitle: " + note.getTitle());
+                                System.out.println("Content: " + note.getContent());
+                                System.out.println("Created: " + note.getCreatedDate());
+                            }
+                            break;
+                        case 4:
+                            System.out.print("Enter note number to edit: ");
+                            int editIndex = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Enter new content: ");
+                            String newContent = scanner.nextLine();
+                            noteManager.editNoteContent(editIndex, newContent);
+                            break;
+                        case 5:
+                            System.out.print("Enter note number to delete: ");
+                            int deleteIndex = Integer.parseInt(scanner.nextLine());
+                            noteManager.deleteNoteByIndex(deleteIndex);
+                            break;
+                        case 6:
+                            System.out.println("Exiting application. Goodbye!");
+                            return;
+                        default:
+                            System.out.println("Invalid option. Please try again.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                } catch (Exception e) {
+                    System.out.println("An error occurred: " + e.getMessage());
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
-            } catch (Exception e) {
-                System.out.println("An error occurred: " + e.getMessage());
             }
         }
     }
